@@ -2,7 +2,7 @@
 function setupAuth(User, app) {
   var passport = require('passport');
   var FacebookStrategy = require('passport-facebook').Strategy;
-
+  var config = require('./config.json');
   // High level serialize/de-serialize configuration for passport
   passport.serializeUser(function(user, done) {
     done(null, user._id);
@@ -18,8 +18,8 @@ function setupAuth(User, app) {
   passport.use(new FacebookStrategy(
     {
       // TODO: and use the Config service here
-      clientID: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+      clientID: config.facebookClientId,
+      clientSecret: config.facebookClientSecret,
       callbackURL: 'http://localhost:3000/auth/facebook/callback'
     },
     function(accessToken, refreshToken, profile, done) {
